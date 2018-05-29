@@ -1,0 +1,12 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "graphql-yoga": "^1.14.6",
+    "nodemon": "^1.17.5"
+  }
+}

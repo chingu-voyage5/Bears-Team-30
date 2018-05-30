@@ -5,6 +5,16 @@ type Query {
   findOrderById(id: ID!): Order!
 }
 
+type Mutation {
+  createOrder(
+    name: String!
+    remark: String!
+    discountCards: Int!
+    orderList: String!
+    tableNumber: String!
+  ): Order!
+}
+
 type Food {
   id: ID!
   name: String!

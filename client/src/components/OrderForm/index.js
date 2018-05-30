@@ -22,6 +22,7 @@ export default compose(
       }
       menus.map(menuItem => {
         values[menuItem.name] = 0
+        return null
       })
 
       return values

@@ -1,0 +1,31 @@
+type Query {
+  allFood: [Food!]!
+  findFoodById(id: ID!): Food!
+  allOrders: [Order!]!
+  findOrderById(id: ID!): Order!
+}
+
+type Food {
+  id: ID!
+  name: String!
+  price: Float!
+}
+
+type Order {
+  id: ID!
+  name: String!
+  remark: String!
+  discountCards: Int!
+  orderList: [OrderItem!]!
+  totalDishes: Int!
+  total: Float!
+  tableNumber: String!
+  status: String!
+}
+
+type OrderItem {
+  foodId: ID!
+  name: String!
+  price: Float!
+  quantity: Int!
+}

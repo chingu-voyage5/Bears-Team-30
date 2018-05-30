@@ -21,6 +21,15 @@ const OrderForm = ({
     {touched.customerName &&
       errors.customerName && <div>{errors.customerName}</div>}
 
+    <textarea
+      name='customerNotes'
+      onChange={handleChange}
+      onBlur={handleBlur}
+      value={values.customerNotes}
+    />
+    {touched.customerNotes &&
+      errors.customerNotes && <div>{errors.customerNotes}</div>}
+
     <button type='submit' disabled={isSubmitting}>
       Submit
     </button>

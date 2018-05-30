@@ -84,6 +84,7 @@ const MenuItemInput = ({
       <input
         type='number'
         name={name}
+        placeholder={name}
         onChange={handleChange}
         onBlur={handleBlur}
         value={values[name]}

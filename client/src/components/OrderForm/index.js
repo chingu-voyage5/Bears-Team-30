@@ -2,17 +2,6 @@ import OrderForm from './OrderForm'
 import { withFormik } from 'formik'
 import { defaultProps, compose } from 'recompose'
 
-const getMenuItemsObject = menus => {
-  const menuItems = {}
-  return menus.map(menu => {
-    return {
-      ...menuItems,
-      [menu.name]: ''
-    }
-  })
-}
-// i used the menus prop from defaultProp HOC
-//
 export default compose(
   defaultProps({
     menus: [
@@ -26,12 +15,16 @@ export default compose(
   withFormik({
     enableReinitialize: true,
     mapPropsToValues: ({ menus }) => {
-      return {
+      const values = {
         customerName: '',
         customerNotes: '',
-        preSaleCards: 0,
-        ...getMenuItemsObject(menus)
+        preSaleCards: 0
       }
+      menus.map(menuItem => {
+        values[menuItem.name] = 0
+      })
+
+      return values
     },
     handleSubmit: (
       { customerName, customerNotes, preSaleCards },

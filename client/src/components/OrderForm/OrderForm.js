@@ -11,7 +11,6 @@ const OrderForm = ({
   isSubmitting,
   menus
 }) => {
-  console.log('values', values)
   return (
     <form onSubmit={handleSubmit}>
       <div>

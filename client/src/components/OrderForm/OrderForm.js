@@ -14,15 +14,27 @@ const OrderForm = ({
     <input
       type='text'
       name='customerName'
+      placeholder='Name'
       onChange={handleChange}
       onBlur={handleBlur}
       value={values.customerName}
     />
     {touched.customerName &&
       errors.customerName && <div>{errors.customerName}</div>}
+    <input
+      type='number'
+      name='preSaleCards'
+      placeholder='How many cards'
+      onChange={handleChange}
+      onBlur={handleBlur}
+      value={values.preSaleCards}
+    />
+    {touched.preSaleCards &&
+      errors.preSaleCards && <div>{errors.preSaleCards}</div>}
 
     <textarea
       name='customerNotes'
+      placeholder='Notes'
       onChange={handleChange}
       onBlur={handleBlur}
       value={values.customerNotes}

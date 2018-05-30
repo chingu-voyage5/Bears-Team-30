@@ -13,6 +13,15 @@ type Mutation {
     orderList: String!
     tableNumber: String!
   ): Order!
+  editOrder(
+    id: ID!
+    name: String
+    remark: String
+    discountCards: Int
+    orderList: String
+    tableNumber: String
+    status: String
+  ): Order!
 }
 
 type Food {

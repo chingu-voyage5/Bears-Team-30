@@ -30,6 +30,31 @@ const resolvers = {
 
       dummyOrders.push(order);
       return order;
+    },
+    editOrder: (_, args) => {
+      let order = dummyOrders.find(obj => obj.id == args.id);
+      console.log(args.name);
+      if (args.name) order.name = args.name;
+      if (args.remark) order.remark = args.remark;
+      if (args.discountCards) order.discountCards = args.discountCards;
+      if (args.status) order.status = args.status;
+
+      if (args.orderList) {
+        order.orderList = JSON.parse(args.orderList);
+        let prices = order.orderList.map(item => item.price);
+
+        order.total =
+          prices.reduce((sum, currentValue) => sum + currentValue) -
+          order.discountCards * 2;
+
+        order.totalDishes = prices.length;
+      }
+      dummyOrders.find(obj => {
+        if (obj.id == args.id) {
+          obj = order;
+        }
+      });
+      return order;
     }
   }
 };

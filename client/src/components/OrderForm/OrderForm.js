@@ -1,5 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Form, Input } from 'antd'
+
+import MenuItemInput from './MenuItemInput'
+
+const { TextArea } = Input
 
 const OrderForm = ({
   values,
@@ -12,12 +17,11 @@ const OrderForm = ({
   menus
 }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <div>
-        <input
+        <Input
           type='text'
           name='customerName'
-          placeholder='Name'
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.customerName}
@@ -39,7 +43,7 @@ const OrderForm = ({
       ))}
 
       <div>
-        <input
+        <Input
           type='number'
           name='preSaleCards'
           onChange={handleChange}
@@ -51,9 +55,8 @@ const OrderForm = ({
       </div>
 
       <div>
-        <textarea
+        <TextArea
           name='customerNotes'
-          placeholder='Notes'
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.customerNotes}
@@ -65,31 +68,7 @@ const OrderForm = ({
       <button type='submit' disabled={isSubmitting}>
         Submit
       </button>
-    </form>
-  )
-}
-
-const MenuItemInput = ({
-  menuItem,
-  handleChange,
-  handleBlur,
-  values,
-  touched,
-  errors
-}) => {
-  const { name } = menuItem
-  return (
-    <div>
-      <input
-        type='number'
-        name={name}
-        placeholder={name}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values[name]}
-      />
-      {touched[name] && errors[name] && <div>{errors[name]}</div>}
-    </div>
+    </Form>
   )
 }
 
@@ -102,15 +81,6 @@ OrderForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   menus: PropTypes.array.isRequired
-}
-
-MenuItemInput.propTypes = {
-  values: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  touched: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleBlur: PropTypes.func.isRequired,
-  menuItem: PropTypes.object.isRequired
 }
 
 export default OrderForm

@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Input } from 'antd'
+import { Form, Input, InputNumber } from 'antd'
 
 import MenuItemInput from './MenuItemInput'
 
+const FormItem = Form.Item
 const { TextArea } = Input
 
 const OrderForm = ({
@@ -14,11 +15,12 @@ const OrderForm = ({
   handleBlur,
   handleSubmit,
   isSubmitting,
+  setFieldValue,
   menus
 }) => {
   return (
     <Form onSubmit={handleSubmit}>
-      <div>
+      <FormItem label='Customer Name'>
         <Input
           type='text'
           name='customerName'
@@ -28,13 +30,13 @@ const OrderForm = ({
         />
         {touched.customerName &&
           errors.customerName && <div>{errors.customerName}</div>}
-      </div>
+      </FormItem>
 
       {menus.map(menuItem => (
         <MenuItemInput
           key={menuItem.id}
           menuItem={menuItem}
-          handleChange={handleChange}
+          setFieldValue={setFieldValue}
           handleBlur={handleBlur}
           values={values}
           touched={touched}
@@ -42,19 +44,19 @@ const OrderForm = ({
         />
       ))}
 
-      <div>
-        <Input
-          type='number'
+      <FormItem label='Pre-Sale Cards'>
+        <InputNumber
           name='preSaleCards'
-          onChange={handleChange}
+          onChange={value => setFieldValue('preSaleCards', value)}
           onBlur={handleBlur}
           value={values.preSaleCards}
+          min={0}
         />
         {touched.preSaleCards &&
           errors.preSaleCards && <div>{errors.preSaleCards}</div>}
-      </div>
+      </FormItem>
 
-      <div>
+      <FormItem label='Customer Notes'>
         <TextArea
           name='customerNotes'
           onChange={handleChange}
@@ -63,7 +65,7 @@ const OrderForm = ({
         />
         {touched.customerNotes &&
           errors.customerNotes && <div>{errors.customerNotes}</div>}
-      </div>
+      </FormItem>
 
       <button type='submit' disabled={isSubmitting}>
         Submit

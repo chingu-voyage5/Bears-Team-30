@@ -1,27 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Input } from 'antd'
+import { InputNumber, Form } from 'antd'
+
+const FormItem = Form.Item
 
 const MenuItemInput = ({
   menuItem,
-  handleChange,
   handleBlur,
   values,
   touched,
-  errors
+  errors,
+  setFieldValue
 }) => {
   const { name } = menuItem
   return (
-    <div>
-      <Input
-        type='number'
+    <FormItem label={name}>
+      <InputNumber
         name={name}
-        onChange={handleChange}
         onBlur={handleBlur}
         value={values[name]}
+        onChange={value => setFieldValue(name, value)}
       />
       {touched[name] && errors[name] && <div>{errors[name]}</div>}
-    </div>
+    </FormItem>
   )
 }
 
@@ -29,9 +30,9 @@ MenuItemInput.propTypes = {
   values: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,
-  menuItem: PropTypes.object.isRequired
+  menuItem: PropTypes.object.isRequired,
+  setFieldValue: PropTypes.func.isRequired
 }
 
 export default MenuItemInput

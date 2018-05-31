@@ -5,6 +5,9 @@ const resolvers = {
   Query: {
     allFood: () => dummyFood,
     findFoodById: (_, args) => dummyFood.find(obj => obj.id == args.id),
+    findFoodByType: (_, args) => {
+      return dummyFood.filter(food => food.type == args.type);
+    },
     allOrders: () => dummyOrders,
     findOrderById: (_, args) => dummyOrders.find(obj => obj.id == args.id)
   },

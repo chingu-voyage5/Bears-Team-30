@@ -1,6 +1,7 @@
 type Query {
   allFood: [Food!]!
   findFoodById(id: ID!): Food!
+  findFoodByType(type: String): [Food!]!
   allOrders: [Order!]!
   findOrderById(id: ID!): Order!
 }
@@ -28,6 +29,7 @@ type Food {
   id: ID!
   name: String!
   price: Float!
+  type: String!
 }
 
 type Order {
@@ -46,5 +48,6 @@ type OrderItem {
   foodId: ID!
   name: String!
   price: Float!
+  type: String!
   quantity: Int!
 }

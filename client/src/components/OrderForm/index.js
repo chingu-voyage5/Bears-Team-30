@@ -2,29 +2,36 @@ import OrderForm from './OrderForm'
 import { withFormik } from 'formik'
 import { defaultProps, compose } from 'recompose'
 
+const setMenuInitialValues = (menus, values) =>
+  menus.map(menuItem => {
+    values[menuItem.name] = 0
+    return null
+  })
+
 export default compose(
   defaultProps({
-    menus: [
-      { id: '1', name: 'soup', price: 10 },
+    soup: [{ id: '1', name: 'soup', price: 10 }],
+    adult: [
       { id: '2', name: 'adult-1', price: 11 },
       { id: '3', name: 'adult-2', price: 12 },
-      { id: '4', name: 'adult-3', price: 13 },
-      { id: '5', name: 'children-1', price: 14 }
+      { id: '4', name: 'adult-3', price: 13 }
+    ],
+    child: [
+      { id: '5', name: 'children-1', price: 14 },
+      { id: '6', name: 'children-2', price: 14 }
     ]
   }),
   withFormik({
     enableReinitialize: true,
-    mapPropsToValues: ({ menus }) => {
+    mapPropsToValues: ({ soup, adult, child }) => {
       const values = {
         customerName: '',
         customerNotes: '',
         preSaleCards: 0
       }
-      menus.map(menuItem => {
-        values[menuItem.name] = 0
-        return null
-      })
-
+      setMenuInitialValues(soup, values)
+      setMenuInitialValues(adult, values)
+      setMenuInitialValues(child, values)
       return values
     },
     handleSubmit: (

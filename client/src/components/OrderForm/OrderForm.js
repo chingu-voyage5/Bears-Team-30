@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Input, InputNumber } from 'antd'
+import { Form, Input, InputNumber, Row, Col, Button } from 'antd'
 
 import MenuItemInput from './MenuItemInput'
 
@@ -16,7 +16,9 @@ const OrderForm = ({
   handleSubmit,
   isSubmitting,
   setFieldValue,
-  menus
+  soup,
+  adult,
+  child
 }) => {
   return (
     <Form onSubmit={handleSubmit}>
@@ -32,17 +34,47 @@ const OrderForm = ({
           errors.customerName && <div>{errors.customerName}</div>}
       </FormItem>
 
-      {menus.map(menuItem => (
-        <MenuItemInput
-          key={menuItem.id}
-          menuItem={menuItem}
-          setFieldValue={setFieldValue}
-          handleBlur={handleBlur}
-          values={values}
-          touched={touched}
-          errors={errors}
-        />
-      ))}
+      <Row type='flex' gutter={16}>
+        <Col span={8}>
+          {soup.map(menuItem => (
+            <MenuItemInput
+              key={menuItem.id}
+              menuItem={menuItem}
+              setFieldValue={setFieldValue}
+              handleBlur={handleBlur}
+              values={values}
+              touched={touched}
+              errors={errors}
+            />
+          ))}
+        </Col>
+        <Col span={8}>
+          {adult.map(menuItem => (
+            <MenuItemInput
+              key={menuItem.id}
+              menuItem={menuItem}
+              setFieldValue={setFieldValue}
+              handleBlur={handleBlur}
+              values={values}
+              touched={touched}
+              errors={errors}
+            />
+          ))}
+        </Col>
+        <Col span={8}>
+          {child.map(menuItem => (
+            <MenuItemInput
+              key={menuItem.id}
+              menuItem={menuItem}
+              setFieldValue={setFieldValue}
+              handleBlur={handleBlur}
+              values={values}
+              touched={touched}
+              errors={errors}
+            />
+          ))}
+        </Col>
+      </Row>
 
       <FormItem label='Pre-Sale Cards'>
         <InputNumber
@@ -67,9 +99,9 @@ const OrderForm = ({
           errors.customerNotes && <div>{errors.customerNotes}</div>}
       </FormItem>
 
-      <button type='submit' disabled={isSubmitting}>
+      <Button htmlType='submit' type='primary' disabled={isSubmitting}>
         Submit
-      </button>
+      </Button>
     </Form>
   )
 }
@@ -82,7 +114,10 @@ OrderForm.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
-  menus: PropTypes.array.isRequired
+  setFieldValue: PropTypes.func.isRequired,
+  soup: PropTypes.array.isRequired,
+  adult: PropTypes.array.isRequired,
+  child: PropTypes.array.isRequired
 }
 
 export default OrderForm

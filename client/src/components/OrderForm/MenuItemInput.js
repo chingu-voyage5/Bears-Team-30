@@ -20,6 +20,7 @@ const MenuItemInput = ({
         onBlur={handleBlur}
         value={values[name]}
         onChange={value => setFieldValue(name, value)}
+        style={{ width: '100%' }}
       />
       {touched[name] && errors[name] && <div>{errors[name]}</div>}
     </FormItem>

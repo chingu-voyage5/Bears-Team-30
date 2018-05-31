@@ -14,14 +14,7 @@ const StyledLayout = styled(Layout)`
 `
 
 const StyledContent = styled(Content)`
-  .content-box {
-    max-width: 100%;
-    width: 1024px;
-    min-height: 700px;
-    margin: 30px auto;
-    padding: 15px;
-    background: #ffffff;
-  }
+  padding: 0 50px;
 `
 
 class App extends Component {
@@ -31,7 +24,7 @@ class App extends Component {
         <StyledLayout className='layout'>
           <AppHeader />
 
-          <StyledContent style={{ padding: '0 50px' }}>
+          <StyledContent>
             <div className='content-box'>
               <Switch>
                 <Route exact path='/' component={EntrancePage} />

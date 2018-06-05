@@ -4,6 +4,7 @@ import { Layout } from 'antd'
 import styled from 'styled-components'
 
 import EntrancePage from '../../pages/EntrancePage'
+import KitchenPage from '../../pages/KitchenPage'
 import AppFooter from '../../components/AppFooter'
 import AppHeader from '../../components/AppHeader'
 
@@ -29,6 +30,7 @@ class App extends Component {
               <Switch>
                 <Route exact path='/' component={EntrancePage} />
                 <Route path='/entrance' component={EntrancePage} />
+                <Route path='/kitchen' component={KitchenPage} />
               </Switch>
             </div>
           </StyledContent>

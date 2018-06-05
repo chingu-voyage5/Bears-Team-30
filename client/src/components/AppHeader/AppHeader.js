@@ -23,7 +23,7 @@ const AppHeader = () => {
           <Link to='/entrance'>Entrance</Link>
         </Menu.Item>
         <Menu.Item key='2'>
-          <Link to='/'>Kitchen</Link>
+          <Link to='/kitchen'>Kitchen</Link>
         </Menu.Item>
       </Menu>
     </StyledHeader>

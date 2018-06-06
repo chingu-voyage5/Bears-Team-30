@@ -29,6 +29,7 @@ This Project aims to create a mobile app for an Ordering System.
 - Clone the project by running `git clone git@github.com:chingu-voyage5/Bears-Team-30.git`
 - Do not modify the `master` branch directly only Merging can be done to the `master` branch.
 - To began working on a feature, start by creating a new branch from `master` by doing `git checkout -b branch-name`
+- Always rebase your branch to update it with the latest changes from the `master` using `git pull origin master --rebase`
 - Once changes are committed, push changes by doing `git push origin branch-name`
 - Create a pull request from Github. Each team member will do the code review whenever possible.
 

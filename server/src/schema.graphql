@@ -1,6 +1,7 @@
 type Query {
   allFood: [Food!]!
   findFoodById(id: ID!): Food!
+  findFoodByType(type: String): [Food!]!
   allOrders: [Order!]!
   findOrderById(id: ID!): Order!
 }
@@ -13,12 +14,22 @@ type Mutation {
     orderList: String!
     tableNumber: String!
   ): Order!
+  editOrder(
+    id: ID!
+    name: String
+    remark: String
+    discountCards: Int
+    orderList: String
+    tableNumber: String
+    status: String
+  ): Order!
 }
 
 type Food {
   id: ID!
   name: String!
   price: Float!
+  type: String!
 }
 
 type Order {
@@ -37,5 +48,6 @@ type OrderItem {
   foodId: ID!
   name: String!
   price: Float!
+  type: String!
   quantity: Int!
 }

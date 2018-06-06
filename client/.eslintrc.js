@@ -1,4 +1,12 @@
 module.exports = {
     "parser": "babel-eslint",
-    "extends": ["standard", "standard-react"]
+    "extends": [
+        "standard",
+        "standard-react",
+        "plugin:import/errors",
+        "plugin:import/warnings"
+    ],
+    "plugins": [
+        "import",
+    ]
 }

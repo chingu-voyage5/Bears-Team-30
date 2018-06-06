@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
+
 import EntrancePage from '../../pages/EntrancePage'
 
 class App extends Component {

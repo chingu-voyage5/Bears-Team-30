@@ -1,8 +1,10 @@
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "BaseStyles" }] */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 
 import App from './components/App'
+import BaseStyles from './BaseStyles'
 import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(

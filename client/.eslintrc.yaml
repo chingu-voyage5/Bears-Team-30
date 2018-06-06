@@ -1,0 +1,27 @@
+parser: babel-eslint
+
+extends:
+  - eslint:recommended
+  - standard
+  - standard-react
+  - plugin:import/errors
+  - plugin:react/recommended
+
+env:
+  browser: true
+  jest: true
+
+globals:
+  shallow: false
+  shallowWithIntl: false
+  mockIntl: false
+
+rules:
+  # stylistic
+  comma-dangle: [2, always-multiline]
+
+  # eslint
+  no-unused-vars: [2, { argsIgnorePattern: ^_, varsIgnorePattern: ^_ }]
+
+  # react
+  react/display-name: 0

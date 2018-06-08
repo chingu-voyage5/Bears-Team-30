@@ -11,15 +11,19 @@ type Mutation {
   createOrder(
     name: String!
     remark: String
-    discountCards: Int!
     menuItems: String!
+    qty: Int!
+    discountCards: Int!
+    total: Float!
   ): Order!
   editOrder(
-    id: ID!
+    _id: ID!
     name: String
     remark: String
-    discountCards: Int
     menuItems: String
+    qty: Int
+    discountCards: Int
+    total: Float
     tableNumber: String
     status: String
   ): Order!
@@ -33,11 +37,11 @@ type MenuItem {
 }
 
 type Order {
-  id: ID!
+  _id: ID!
   name: String!
-  remark: String!
+  remark: String
   menuItems: [OrderedItem!]!
-  totalDishes: Int!
+  qty: Int!
   tableNumber: String
   discountCards: Int!
   total: Float!
@@ -52,5 +56,5 @@ type OrderedItem {
   name: String!
   price: Float!
   category: String!
-  quantity: Int!
+  qty: Int!
 }

@@ -31,7 +31,9 @@ const resolvers = {
         name: args.name,
         remark: args.remark,
         menuItems: JSON.parse(args.menuItems)[0],
+        qty: args.qty,
         discountCards: args.discountCards,
+        total: args.total,
         status: 'ordered'
       }).save();
     },

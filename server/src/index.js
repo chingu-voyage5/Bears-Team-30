@@ -16,8 +16,8 @@ const resolvers = {
     findMenuItemsByCategory: (_, args) => {
       return MenuItem.find({ category: args.category });
     },
-    allOrders: () => dummyOrders,
-    findOrderById: (_, args) => dummyOrders.find(obj => obj.id == args.id)
+    allOrders: () => Order.find({}),
+    findOrderById: (_, args) => Order.find({ _id: args._id })
   },
   Mutation: {
     createMenuItem: (_, args) =>
@@ -27,26 +27,13 @@ const resolvers = {
         category: args.category
       }).save(),
     createOrder: (_, args) => {
-      let order = {
-        id: orderId++,
+      return new Order({
         name: args.name,
         remark: args.remark,
+        menuItems: JSON.parse(args.menuItems)[0],
         discountCards: args.discountCards,
-        tableNumber: args.tableNumber,
-        orderList: JSON.parse(args.orderList),
         status: 'ordered'
-      };
-
-      let prices = order.orderList.map(item => item.price);
-
-      order.total =
-        prices.reduce((sum, currentValue) => sum + currentValue) -
-        order.discountCards * 2;
-
-      order.totalDishes = prices.length;
-
-      dummyOrders.push(order);
-      return order;
+      }).save();
     },
     editOrder: (_, args) => {
       let order = dummyOrders.find(obj => obj.id == args.id);

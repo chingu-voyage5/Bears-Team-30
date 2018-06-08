@@ -1,13 +1,14 @@
 const { GraphQLServer } = require('graphql-yoga');
 const mongoose = require('mongoose');
+
 const { uri } = require('../server.config.js');
+const { setTime } = require('./utils');
 
 // MongoDB Models
 const MenuItem = require('./models/menuItem');
 const Order = require('./models/order');
 
-let { dummyFood, dummyOrders, orderId } = require('./dummyData.js');
-var ObjectId = mongoose.Types.ObjectId;
+let ObjectId = mongoose.Types.ObjectId;
 
 const resolvers = {
   Query: {
@@ -34,33 +35,39 @@ const resolvers = {
         qty: args.qty,
         discountCards: args.discountCards,
         total: args.total,
+        orderedAt: setTime(),
         status: 'ordered'
       }).save();
     },
     editOrder: (_, args) => {
-      let order = dummyOrders.find(obj => obj.id == args.id);
-      console.log(args.name);
-      if (args.name) order.name = args.name;
-      if (args.remark) order.remark = args.remark;
-      if (args.discountCards) order.discountCards = args.discountCards;
-      if (args.status) order.status = args.status;
+      let update = {};
+      if (args.name) update.name = args.name;
+      if (args.remark) update.remark = args.remark;
+      if (args.tableNumber) update.tableNumber = args.tableNumber;
 
-      if (args.orderList) {
-        order.orderList = JSON.parse(args.orderList);
-        let prices = order.orderList.map(item => item.price);
-
-        order.total =
-          prices.reduce((sum, currentValue) => sum + currentValue) -
-          order.discountCards * 2;
-
-        order.totalDishes = prices.length;
+      if (args.status) {
+        if (args.status === 'scanned') update.scannedAt = setTime();
+        if (args.status === 'delivered') update.deliveredAt = setTime();
       }
-      dummyOrders.find(obj => {
-        if (obj.id == args.id) {
-          obj = order;
-        }
-      });
-      return order;
+
+      if (args.menuItems) {
+        // If menuItems are updated, total and qty may change
+        if (!args.qty)
+          throw `args.qty and args.total is required to update menuItems`;
+
+        update.menuItems = JSON.parse(args.menuItems)[0];
+        update.total = args.total;
+        update.qty = args.qty;
+      }
+
+      if (args.discountCards) {
+        // If discount cards updated, total will change
+        if (!args.total) throw 'args.total is required to update discountCards';
+
+        update.discountCards = args.discountCards;
+        update.total = args.total;
+      }
+      return Order.findByIdAndUpdate(args._id, update, { new: true }).exec();
     }
   }
 };

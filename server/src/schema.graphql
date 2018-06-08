@@ -1,7 +1,7 @@
 type Query {
-  allFood: [Food!]!
-  findFoodById(id: ID!): Food!
-  findFoodByType(type: String): [Food!]!
+  allMenuItems: [MenuItem!]!
+  findMenuItemId(id: ID!): MenuItem!
+  findMenuItemsType(type: String): [MenuItem!]!
   allOrders: [Order!]!
   findOrderById(id: ID!): Order!
 }
@@ -25,29 +25,32 @@ type Mutation {
   ): Order!
 }
 
-type Food {
+type MenuItem {
   id: ID!
   name: String!
   price: Float!
-  type: String!
+  category: String!
 }
 
 type Order {
   id: ID!
   name: String!
   remark: String!
-  discountCards: Int!
-  orderList: [OrderItem!]!
+  menuItems: [OrderedItem!]!
   totalDishes: Int!
-  total: Float!
   tableNumber: String!
+  discountCards: Int!
+  total: Float!
+  orderedAt: String!
+  scannedAt: String!
+  deliveredAt: String!
   status: String!
 }
 
-type OrderItem {
+type OrderedItem {
   foodId: ID!
   name: String!
   price: Float!
-  type: String!
+  category: String!
   quantity: Int!
 }

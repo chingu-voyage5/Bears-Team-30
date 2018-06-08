@@ -3,9 +3,9 @@ let { dummyFood, dummyOrders, orderId } = require('./dummyData.js');
 
 const resolvers = {
   Query: {
-    allFood: () => dummyFood,
-    findFoodById: (_, args) => dummyFood.find(obj => obj.id == args.id),
-    findFoodByType: (_, args) => {
+    allMenuItems: () => dummyFood,
+    findMenuItemId: (_, args) => dummyFood.find(obj => obj.id == args.id),
+    findMenuItemsType: (_, args) => {
       return dummyFood.filter(food => food.type == args.type);
     },
     allOrders: () => dummyOrders,

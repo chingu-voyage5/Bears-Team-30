@@ -2,11 +2,16 @@ const { GraphQLServer } = require('graphql-yoga');
 const mongoose = require('mongoose');
 const { uri } = require('../server.config.js');
 
+// MongoDB Models
+const MenuItem = require('./models/menuItem');
+const Order = require('./models/order');
+
 let { dummyFood, dummyOrders, orderId } = require('./dummyData.js');
+var ObjectId = mongoose.Types.ObjectId;
 
 const resolvers = {
   Query: {
-    allMenuItems: () => dummyFood,
+    allMenuItems: () => MenuItem.find({}),
     findMenuItemId: (_, args) => dummyFood.find(obj => obj.id == args.id),
     findMenuItemsType: (_, args) => {
       return dummyFood.filter(food => food.type == args.type);
@@ -15,6 +20,12 @@ const resolvers = {
     findOrderById: (_, args) => dummyOrders.find(obj => obj.id == args.id)
   },
   Mutation: {
+    createMenuItem: (_, args) =>
+      new MenuItem({
+        name: args.name,
+        price: args.price,
+        category: args.category
+      }).save(),
     createOrder: (_, args) => {
       let order = {
         id: orderId++,

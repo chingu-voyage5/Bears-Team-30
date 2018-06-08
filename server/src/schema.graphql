@@ -13,7 +13,7 @@ type Mutation {
     remark: String
     menuItems: String!
     qty: Int!
-    discountCards: Int!
+    discountCards: Int
     total: Float!
   ): Order!
   editOrder(
@@ -43,7 +43,7 @@ type Order {
   menuItems: [OrderedItem!]!
   qty: Int!
   tableNumber: String
-  discountCards: Int!
+  discountCards: Int
   total: Float!
   orderedAt: String!
   scannedAt: String

@@ -11,7 +11,7 @@ const orderSchema = new Schema({
   discountCards: Number,
   total: Number,
   qty: Number,
-  createdAt: String,
+  orderedAt: String,
   scannedAt: String,
   deliveredAt: String,
   status: String

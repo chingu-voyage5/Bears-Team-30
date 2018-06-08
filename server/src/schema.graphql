@@ -1,7 +1,7 @@
 type Query {
   allMenuItems: [MenuItem!]!
-  findMenuItemId(id: ID!): MenuItem!
-  findMenuItemsType(type: String): [MenuItem!]!
+  findMenuItemById(_id: ID!): MenuItem!
+  findMenuItemsByCategory(category: String): [MenuItem!]!
   allOrders: [Order!]!
   findOrderById(id: ID!): Order!
 }
@@ -27,7 +27,7 @@ type Mutation {
 }
 
 type MenuItem {
-  id: ID!
+  _id: ID!
   name: String!
   price: Float!
   category: String!

@@ -6,7 +6,7 @@ const setTime = () => {
   amOrPm = hours < 12 ? 'am' : 'pm';
   hours = amOrPm === 'pm' && hours - 12;
 
-  return `${hours}:${minutes}${amOrPm}`;
+  return `${hours}:${minutes} ${amOrPm}`;
 };
 
 module.exports = {

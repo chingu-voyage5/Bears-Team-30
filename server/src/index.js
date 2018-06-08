@@ -11,10 +11,10 @@ var ObjectId = mongoose.Types.ObjectId;
 
 const resolvers = {
   Query: {
-    allMenuItems: () => dummyFood,
-    findMenuItemId: (_, args) => dummyFood.find(obj => obj.id == args.id),
-    findMenuItemsType: (_, args) => {
-      return dummyFood.filter(food => food.type == args.type);
+    allMenuItems: () => MenuItem.find({}),
+    findMenuItemById: (_, args) => MenuItem.findById({ _id: args._id }),
+    findMenuItemsByCategory: (_, args) => {
+      return MenuItem.find({ category: args.category });
     },
     allOrders: () => dummyOrders,
     findOrderById: (_, args) => dummyOrders.find(obj => obj.id == args.id)

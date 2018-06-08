@@ -7,6 +7,7 @@ type Query {
 }
 
 type Mutation {
+  createMenuItem(name: String!, price: Int!, category: String!): MenuItem!
   createOrder(
     name: String!
     remark: String!

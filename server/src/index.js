@@ -1,3 +1,4 @@
+const signale = require('signale');
 const { GraphQLServer } = require('graphql-yoga');
 const mongoose = require('mongoose');
 
@@ -77,5 +78,5 @@ const server = new GraphQLServer({
   resolvers
 });
 mongoose.connect(uri);
-mongoose.connection.once('open', () => console.log('Connected to MongoDB'));
-server.start(() => console.log('GraphQL server on localhost:4000'));
+mongoose.connection.once('open', () => signale.success('Connected to MongoDB'));
+server.start(() => signale.success('GraphQL server on localhost:4000'));

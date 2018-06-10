@@ -52,9 +52,9 @@ const resolvers = {
       }
 
       if (args.menuItems) {
-        // If menuItems are updated, total and qty may change
-        if (!args.qty)
-          throw `args.qty and args.total is required to update menuItems`;
+        // If menuItems are updated, total and totalQty may change
+        if (!args.totalQty || !args.total)
+          throw `args.totalQty and args.total is required to update menuItems`;
 
         update.menuItems = JSON.parse(args.menuItems)[0];
         update.total = args.total;

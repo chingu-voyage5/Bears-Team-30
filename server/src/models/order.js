@@ -7,7 +7,7 @@ const orderSchema = new Schema({
   name: { type: String, required: true },
   remark: String,
   menuItems: { type: Array, required: true },
-  qty: { type: Number, required: true },
+  totalQty: { type: Number, required: true },
   discountCards: Number,
   total: { type: Number, required: true },
   orderedAt: { type: String, required: true },

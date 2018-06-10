@@ -33,7 +33,7 @@ const resolvers = {
         name: args.name,
         remark: args.remark,
         menuItems: JSON.parse(args.menuItems)[0],
-        qty: args.qty,
+        totalQty: args.totalQty,
         discountCards: args.discountCards,
         total: args.total,
         orderedAt: setTime(),
@@ -58,7 +58,7 @@ const resolvers = {
 
         update.menuItems = JSON.parse(args.menuItems)[0];
         update.total = args.total;
-        update.qty = args.qty;
+        update.totalQty = args.totalQty;
       }
 
       if (args.discountCards) {

@@ -1,3 +1,4 @@
+const signale = require('signale');
 const { GraphQLServer } = require('graphql-yoga');
 const mongoose = require('mongoose');
 
@@ -32,7 +33,7 @@ const resolvers = {
         name: args.name,
         remark: args.remark,
         menuItems: JSON.parse(args.menuItems)[0],
-        qty: args.qty,
+        totalQty: args.totalQty,
         discountCards: args.discountCards,
         total: args.total,
         orderedAt: setTime(),
@@ -51,13 +52,13 @@ const resolvers = {
       }
 
       if (args.menuItems) {
-        // If menuItems are updated, total and qty may change
-        if (!args.qty)
-          throw `args.qty and args.total is required to update menuItems`;
+        // If menuItems are updated, total and totalQty may change
+        if (!args.totalQty || !args.total)
+          throw `args.totalQty and args.total is required to update menuItems`;
 
         update.menuItems = JSON.parse(args.menuItems)[0];
         update.total = args.total;
-        update.qty = args.qty;
+        update.totalQty = args.totalQty;
       }
 
       if (args.discountCards) {
@@ -77,5 +78,5 @@ const server = new GraphQLServer({
   resolvers
 });
 mongoose.connect(uri);
-mongoose.connection.once('open', () => console.log('Connected to MongoDB'));
-server.start(() => console.log('GraphQL server on localhost:4000'));
+mongoose.connection.once('open', () => signale.success('Connected to MongoDB'));
+server.start(() => signale.success('GraphQL server on localhost:4000'));

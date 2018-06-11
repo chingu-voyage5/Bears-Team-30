@@ -25,9 +25,22 @@ This Project aims to create a web app for an Ordering System.
 #### Server
 
 - `cd server` to change to the server directory
+- `touch server.config.js` to create a server config file
+- Setup the config file (example below)
+- Add `server.config.js` to `.gitignore`
 - Run `yarn` to install all dependencies under the server folder
 - Run `yarn start` to run GraphQL server
 - Go to http://localhost:4000 to access GraphQL playground
+
+##### Example `server.config.js`
+
+```javascript
+const uri = '<YOUR_URI_HERE>';
+
+module.exports = {
+  uri
+};
+```
 
 ## Contributing
 

@@ -14,18 +14,7 @@
   "dependencies": {
     "apollo-boost": "^0.1.7",
     "graphql": "^0.13.2",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     "prop-types": "^15.6.1",
-=======
->>>>>>> edit createOrderMutation variables
-=======
-    "prop-types": "^15.6.1",
->>>>>>> add prop-types
-=======
-    "prop-types": "^15.6.1",
->>>>>>> 30d00d39eec3efad9c206da2c46bf3c575ea028c
     "react": "^16.4.0",
     "react-apollo": "^2.1.4",
     "react-dom": "^16.4.0",
@@ -45,7 +34,8 @@
     "eslint-plugin-standard": "^3.1.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.1.2",
-    "prettier-standard": "^8.0.1"
+    "prettier-standard": "^8.0.1",
+    "prop-types": "^15.6.1"
   },
   "lint-staged": {
     "linters": {

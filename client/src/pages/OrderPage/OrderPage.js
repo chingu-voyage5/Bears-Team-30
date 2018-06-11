@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import PropTypes from 'prop-types'
 
 import { allMenuItemsQuery, createOrderMutation } from '../../queries'
@@ -8,6 +9,12 @@ import MenuItem from './MenuItem'
 =======
 import { allMenuItemsQuery, createOrderMutation } from '../../queries'
 >>>>>>> create order page
+=======
+import PropTypes from 'prop-types'
+
+import { allMenuItemsQuery, createOrderMutation } from '../../queries'
+import MenuItem from './MenuItem'
+>>>>>>> breakout menu items into own component
 
 class OrderPage extends Component {
   constructor (props) {
@@ -55,6 +62,7 @@ class OrderPage extends Component {
   }
 
   render () {
+<<<<<<< HEAD
 <<<<<<< HEAD
     // Only 1 call to db for menu item info
     let data = this.props.allMenuItemsQuery
@@ -113,6 +121,11 @@ class OrderPage extends Component {
       })
 
 >>>>>>> create order page
+=======
+    // Only 1 call to db for menu item info
+    let data = this.props.allMenuItemsQuery
+
+>>>>>>> breakout menu items into own component
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -124,12 +137,16 @@ class OrderPage extends Component {
                 <th>Qty</th>
               </tr>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> breakout menu items into own component
               {data.loading ? null : (
                 <React.Fragment>
                   <MenuItem category='soup' data={data} />
                   <MenuItem category='adult' data={data} />
                   <MenuItem category='child' data={data} />
                 </React.Fragment>
+<<<<<<< HEAD
 =======
               {data.loading ? (
                 <tr>
@@ -152,6 +169,8 @@ class OrderPage extends Component {
               ) : (
                 childMenuItems
 >>>>>>> create order page
+=======
+>>>>>>> breakout menu items into own component
               )}
             </tbody>
           </table>
@@ -163,15 +182,21 @@ class OrderPage extends Component {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> breakout menu items into own component
 OrderPage.propTypes = {
   allMenuItemsQuery: PropTypes.object,
   createOrderMutation: PropTypes.function,
 }
+<<<<<<< HEAD
 =======
 /// //////////////////////////
 // PROP-TYPES WILL GO HERE //
 /// //////////////////////////
 >>>>>>> create order page
+=======
+>>>>>>> breakout menu items into own component
 
 export default compose(
   graphql(allMenuItemsQuery, { name: 'allMenuItemsQuery' }),

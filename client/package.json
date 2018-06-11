@@ -15,9 +15,13 @@
     "apollo-boost": "^0.1.7",
     "graphql": "^0.13.2",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "prop-types": "^15.6.1",
 =======
 >>>>>>> edit createOrderMutation variables
+=======
+    "prop-types": "^15.6.1",
+>>>>>>> add prop-types
     "react": "^16.4.0",
     "react-apollo": "^2.1.4",
     "react-dom": "^16.4.0",

@@ -1,26 +1,9 @@
 import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 30d00d39eec3efad9c206da2c46bf3c575ea028c
 import PropTypes from 'prop-types'
 
 import { allMenuItemsQuery, createOrderMutation } from '../../queries'
 import MenuItem from './MenuItem'
-<<<<<<< HEAD
-=======
-import { allMenuItemsQuery, createOrderMutation } from '../../queries'
->>>>>>> create order page
-=======
-import PropTypes from 'prop-types'
-
-import { allMenuItemsQuery, createOrderMutation } from '../../queries'
-import MenuItem from './MenuItem'
->>>>>>> breakout menu items into own component
-=======
->>>>>>> 30d00d39eec3efad9c206da2c46bf3c575ea028c
 
 class OrderPage extends Component {
   constructor (props) {
@@ -68,76 +51,9 @@ class OrderPage extends Component {
   }
 
   render () {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     // Only 1 call to db for menu item info
     let data = this.props.allMenuItemsQuery
 
-=======
-    let data = this.props.allMenuItemsQuery
-
-    /// ///////////////////////////////////////////////////////////////////////////////
-    // MAP FROM ALL ITEMS TO ORGANIZE, INSTEAD OF MAKING MULTIPLE QUERIES TO THE DB //
-    /// ///////////////////////////////////////////////////////////////////////////////
-
-    const adultMenuItems = data.loading
-      ? null
-      : data.allMenuItems
-        .filter(item => item.category === 'adult')
-        .map(item => {
-          return (
-            <tr key={item._id}>
-              <td>Adult {item.name}</td>
-              <td>{item.price}</td>
-              <td>
-                <input type='number' name='qty' min='0' defaultValue='0' />
-              </td>
-            </tr>
-          )
-        })
-
-    const childMenuItems = data.loading
-      ? null
-      : data.allMenuItems
-        .filter(item => item.category === 'child')
-        .map(item => {
-          return (
-            <tr key={item._id}>
-              <td>Child {item.name}</td>
-              <td>{item.price}</td>
-              <td>
-                <input type='number' name='qty' min='0' defaultValue='0' />
-              </td>
-            </tr>
-          )
-        })
-
-    const soupMenuItem = data.loading
-      ? null
-      : data.allMenuItems.filter(item => item.category === 'soup').map(item => {
-        return (
-          <tr key={item._id}>
-            <td>{item.name}</td>
-            <td>{item.price}</td>
-            <td>
-              <input type='number' name='qty' min='0' defaultValue='0' />
-            </td>
-          </tr>
-        )
-      })
-
->>>>>>> create order page
-=======
-    // Only 1 call to db for menu item info
-    let data = this.props.allMenuItemsQuery
-
->>>>>>> breakout menu items into own component
-=======
-    // Only 1 call to db for menu item info
-    let data = this.props.allMenuItemsQuery
-
->>>>>>> 30d00d39eec3efad9c206da2c46bf3c575ea028c
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -148,47 +64,13 @@ class OrderPage extends Component {
                 <th>Price</th>
                 <th>Qty</th>
               </tr>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> breakout menu items into own component
-=======
->>>>>>> 30d00d39eec3efad9c206da2c46bf3c575ea028c
               {data.loading ? null : (
                 <React.Fragment>
                   <MenuItem category='soup' data={data} />
                   <MenuItem category='adult' data={data} />
                   <MenuItem category='child' data={data} />
                 </React.Fragment>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-              {data.loading ? (
-                <tr>
-                  <td>Loading menu items..</td>
-                </tr>
-              ) : (
-                soupMenuItem
-              )}
-              {data.loading ? (
-                <tr>
-                  <td>Loading menu items..</td>
-                </tr>
-              ) : (
-                adultMenuItems
-              )}
-              {data.loading ? (
-                <tr>
-                  <td>Loading menu items..</td>
-                </tr>
-              ) : (
-                childMenuItems
->>>>>>> create order page
-=======
->>>>>>> breakout menu items into own component
-=======
->>>>>>> 30d00d39eec3efad9c206da2c46bf3c575ea028c
+
               )}
             </tbody>
           </table>
@@ -199,28 +81,10 @@ class OrderPage extends Component {
   }
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> breakout menu items into own component
-=======
->>>>>>> 30d00d39eec3efad9c206da2c46bf3c575ea028c
 OrderPage.propTypes = {
   allMenuItemsQuery: PropTypes.object,
   createOrderMutation: PropTypes.function,
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-/// //////////////////////////
-// PROP-TYPES WILL GO HERE //
-/// //////////////////////////
->>>>>>> create order page
-=======
->>>>>>> breakout menu items into own component
-=======
->>>>>>> 30d00d39eec3efad9c206da2c46bf3c575ea028c
 
 export default compose(
   graphql(allMenuItemsQuery, { name: 'allMenuItemsQuery' }),

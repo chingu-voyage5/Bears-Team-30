@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
+import PropTypes from 'prop-types'
+
 import { allMenuItemsQuery, createOrderMutation } from '../../queries'
+import MenuItem from './MenuItem'
 
 class OrderPage extends Component {
   constructor (props) {
@@ -48,57 +51,8 @@ class OrderPage extends Component {
   }
 
   render () {
+    // Only 1 call to db for menu item info
     let data = this.props.allMenuItemsQuery
-
-    /// ///////////////////////////////////////////////////////////////////////////////
-    // MAP FROM ALL ITEMS TO ORGANIZE, INSTEAD OF MAKING MULTIPLE QUERIES TO THE DB //
-    /// ///////////////////////////////////////////////////////////////////////////////
-
-    const adultMenuItems = data.loading
-      ? null
-      : data.allMenuItems
-        .filter(item => item.category === 'adult')
-        .map(item => {
-          return (
-            <tr key={item._id}>
-              <td>Adult {item.name}</td>
-              <td>{item.price}</td>
-              <td>
-                <input type='number' name='qty' min='0' defaultValue='0' />
-              </td>
-            </tr>
-          )
-        })
-
-    const childMenuItems = data.loading
-      ? null
-      : data.allMenuItems
-        .filter(item => item.category === 'child')
-        .map(item => {
-          return (
-            <tr key={item._id}>
-              <td>Child {item.name}</td>
-              <td>{item.price}</td>
-              <td>
-                <input type='number' name='qty' min='0' defaultValue='0' />
-              </td>
-            </tr>
-          )
-        })
-
-    const soupMenuItem = data.loading
-      ? null
-      : data.allMenuItems.filter(item => item.category === 'soup').map(item => {
-        return (
-          <tr key={item._id}>
-            <td>{item.name}</td>
-            <td>{item.price}</td>
-            <td>
-              <input type='number' name='qty' min='0' defaultValue='0' />
-            </td>
-          </tr>
-        )
-      })
 
     return (
       <div>
@@ -110,26 +64,12 @@ class OrderPage extends Component {
                 <th>Price</th>
                 <th>Qty</th>
               </tr>
-              {data.loading ? (
-                <tr>
-                  <td>Loading menu items..</td>
-                </tr>
-              ) : (
-                soupMenuItem
-              )}
-              {data.loading ? (
-                <tr>
-                  <td>Loading menu items..</td>
-                </tr>
-              ) : (
-                adultMenuItems
-              )}
-              {data.loading ? (
-                <tr>
-                  <td>Loading menu items..</td>
-                </tr>
-              ) : (
-                childMenuItems
+              {data.loading ? null : (
+                <React.Fragment>
+                  <MenuItem category='soup' data={data} />
+                  <MenuItem category='adult' data={data} />
+                  <MenuItem category='child' data={data} />
+                </React.Fragment>
               )}
             </tbody>
           </table>
@@ -140,9 +80,10 @@ class OrderPage extends Component {
   }
 }
 
-/// //////////////////////////
-// PROP-TYPES WILL GO HERE //
-/// //////////////////////////
+OrderPage.propTypes = {
+  allMenuItemsQuery: PropTypes.object,
+  createOrderMutation: PropTypes.function,
+}
 
 export default compose(
   graphql(allMenuItemsQuery, { name: 'allMenuItemsQuery' }),

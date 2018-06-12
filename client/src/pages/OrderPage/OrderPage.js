@@ -75,7 +75,6 @@ class OrderPage extends Component {
               type='number'
               name='discountCards'
               min='0'
-              defaultValue='0'
               onChange={this.handleChange}
               value={this.state.discountCards}
             />
@@ -124,7 +123,7 @@ class OrderPage extends Component {
 
 OrderPage.propTypes = {
   allMenuItems: PropTypes.object,
-  createOrder: PropTypes.function,
+  createOrder: PropTypes.any,
 }
 
 export default compose(

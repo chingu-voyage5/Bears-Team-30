@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 import PropTypes from 'prop-types'
 
-import { allMenuItemsQuery, createOrderMutation } from '../../queries'
+import { allMenuItems } from '../../graphql/queries/allMenuItems'
+import { createOrder } from '../../graphql/mutations/createOrder'
+
 import MenuItem from './MenuItem'
+import ContentArea from '../../components/ContentArea'
 
 class OrderPage extends Component {
   constructor (props) {
@@ -39,7 +42,7 @@ class OrderPage extends Component {
     const qty = 1
     const name = 'John Doe'
     const discountCards = 0
-    this.props.createOrderMutation({
+    this.props.createOrder({
       variables: {
         name,
         qty,
@@ -52,10 +55,10 @@ class OrderPage extends Component {
 
   render () {
     // Only 1 call to db for menu item info
-    let data = this.props.allMenuItemsQuery
+    let data = this.props.allMenuItems
 
     return (
-      <div>
+      <ContentArea>
         <form onSubmit={this.handleSubmit}>
           <label>
             Name
@@ -114,17 +117,17 @@ class OrderPage extends Component {
             Reset
           </button>
         </form>
-      </div>
+      </ContentArea>
     )
   }
 }
 
 OrderPage.propTypes = {
-  allMenuItemsQuery: PropTypes.object,
-  createOrderMutation: PropTypes.function,
+  allMenuItems: PropTypes.object,
+  createOrder: PropTypes.function,
 }
 
 export default compose(
-  graphql(allMenuItemsQuery, { name: 'allMenuItemsQuery' }),
-  graphql(createOrderMutation, { name: 'createOrderMutation' })
+  graphql(allMenuItems, { name: 'allMenuItems' }),
+  graphql(createOrder, { name: 'createOrder' })
 )(OrderPage)

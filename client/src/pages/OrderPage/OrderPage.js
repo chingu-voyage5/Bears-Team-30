@@ -8,7 +8,7 @@ import MenuItem from './MenuItem'
 class OrderPage extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = { customerName: '', discountCards: 0, remark: '' }
   }
 
   handleChange = e => {
@@ -57,6 +57,26 @@ class OrderPage extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+          <label>
+            Name
+            <input
+              type='text'
+              name='customerName'
+              onChange={this.handleChange}
+              value={this.state.customerName}
+            />
+          </label>
+          <label>
+            Coupons
+            <input
+              type='number'
+              name='discountCards'
+              min='0'
+              defaultValue='0'
+              onChange={this.handleChange}
+              value={this.state.discountCards}
+            />
+          </label>
           <table>
             <tbody>
               <tr>
@@ -70,11 +90,29 @@ class OrderPage extends Component {
                   <MenuItem category='adult' data={data} />
                   <MenuItem category='child' data={data} />
                 </React.Fragment>
-
               )}
             </tbody>
           </table>
+          <label>
+            Remark
+            <textarea
+              type='number'
+              name='remark'
+              rows='4'
+              cols='30'
+              onChange={this.handleChange}
+              value={this.state.remark}
+            />
+          </label>
           <button type='submit'>Submit</button>
+          <button
+            type='reset'
+            onClick={() =>
+              this.setState({ customerName: '', discountCards: 0, remark: '' })
+            }
+          >
+            Reset
+          </button>
         </form>
       </div>
     )

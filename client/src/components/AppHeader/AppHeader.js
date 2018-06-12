@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 const Header = styled.header`
   background-color: #fdfeff;
@@ -44,22 +43,16 @@ const NavItem = styled.li`
     }
   }
 `
-const NavIcon = styled(FontAwesomeIcon)`
-  margin-right: 10px;
-`
 
 const Links = [
-  { label: 'Entrance', path: '/entrance', icon: ['fas', 'list-ul'] },
-  { label: 'Kitchen', path: '/entrance', icon: ['fas', 'table'] },
+  { label: 'Entrance', path: '/entrance' },
+  { label: 'Kitchen', path: '/entrance' },
 ]
 
 const renderLinks = (links = Links) =>
   links.map(link => (
     <NavItem key={link.label}>
-      <Link to={link.path}>
-        <NavIcon icon={link.icon} />
-        {link.label}
-      </Link>
+      <Link to={link.path}>{link.label}</Link>
     </NavItem>
   ))
 

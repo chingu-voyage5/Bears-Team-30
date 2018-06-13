@@ -1,12 +1,12 @@
 import React from 'react'
 
 const MenuItem = props => {
-  const { data, category } = props
-  const itemDisplay = data.allMenuItems
+  const { menuItems, category, menuItemChange } = props
+  const itemDisplay = menuItems
     .filter(item => item.category === category)
     .map(item => {
       return (
-        <tr key={item._id}>
+        <tr key={item.foodId}>
           {category === 'soup' ? (
             <td>{item.name}</td>
           ) : (
@@ -17,7 +17,13 @@ const MenuItem = props => {
           )}
           <td>{item.price}</td>
           <td>
-            <input type='number' name='qty' min='0' defaultValue='0' />
+            <input
+              type='number'
+              name={`qty-${item.foodId}`}
+              min='0'
+              value={item.qty}
+              onChange={menuItemChange}
+            />
           </td>
         </tr>
       )

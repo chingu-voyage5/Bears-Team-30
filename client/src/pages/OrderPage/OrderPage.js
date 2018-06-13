@@ -12,7 +12,7 @@ class OrderPage extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      customerName: '',
+      name: '',
       discountCards: 0,
       remark: '',
       menuItems: undefined,
@@ -25,36 +25,36 @@ class OrderPage extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    console.log('SUBMITTED!')
+    let totalQty = 0
+    let total = 0
+    const orderedMenuItems = this.state.menuItems.filter(item => {
+      if (item.qty !== 0) {
+        totalQty += Number(item.qty)
+        total += Number(item.qty) * Number(item.price)
+      }
+      return item.qty !== 0
+    })
     /*
     `menuItems` arg in `createOrder` and `editOrder` expects a stringified
     array of objects with `name`, `price`, `qty`, `category` and `foodId`
     */
-
-    /// //////////////////////////////////////
-    // HARD CODED ORDER CREATION TEST DATA //
-    /// //////////////////////////////////////
-    const menuItems = JSON.stringify([
-      {
-        name: 'Chicken Curry',
-        price: 16,
-        qty: 1,
-        category: 'adult',
-        foodId: '5b1c9ee017c12677ecbf9262',
-      },
-    ])
-    const total = 16
-    const qty = 1
-    const name = 'John Doe'
-    const discountCards = 0
+    const menuItems = JSON.stringify(orderedMenuItems)
+    const { name, discountCards, remark } = this.state
     this.props.createOrder({
       variables: {
         name,
-        qty,
+        totalQty,
         total,
-        // discountCards, // <-- this is required for some reason
+        discountCards,
+        remark,
         menuItems,
       },
+    })
+    this.setState({
+      name: '',
+      discountCards: 0,
+      remark: '',
+      menuItems: undefined,
     })
   }
 
@@ -71,21 +71,9 @@ class OrderPage extends Component {
     this.setState({ menuItems: updatedMenuItems })
   }
 
-  // componentDidMount () {
-  //   let data = this.props.allMenuItems
-  //   if (!data.loading) {
-  //     console.log('LOADED', data.allMenuItems)
-  //     let filteredData = data.allMenuItems.map((item) => {
-  //       return {...item, qty: 0}
-  //     })
-  //     console.log('after', filteredData)
-  //     this.setState({menuItems: filteredData})
-  //   }
-  // }
-
   render () {
-    const { customerName, discountCards, remark, menuItems } = this.state
-    // Only 1 call to db for menu item info
+    const { name, discountCards, remark, menuItems } = this.state
+    // Only 1 call to db for all menu item info
     let data = this.props.allMenuItems
     if (!data.loading && !this.state.menuItems) {
       let filteredData = data.allMenuItems.map(item => {
@@ -108,9 +96,9 @@ class OrderPage extends Component {
             Name
             <input
               type='text'
-              name='customerName'
+              name='name'
               onChange={this.handleChange}
-              value={customerName}
+              value={name}
             />
           </label>
           <label>
@@ -171,7 +159,7 @@ class OrderPage extends Component {
             type='reset'
             onClick={() =>
               this.setState({
-                customerName: '',
+                name: '',
                 discountCards: 0,
                 remark: '',
                 menuItems: undefined,

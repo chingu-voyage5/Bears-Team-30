@@ -5,7 +5,7 @@ export const createOrder = gql`
     $name: String!
     $remark: String
     $menuItems: String!
-    $qty: Int!
+    $totalQty: Int!
     $discountCards: Int
     $total: Float!
   ) {
@@ -13,7 +13,7 @@ export const createOrder = gql`
       name: $name
       remark: $remark
       menuItems: $menuItems
-      qty: $qty
+      totalQty: $totalQty
       discountCards: $discountCards
       total: $total
     ) {

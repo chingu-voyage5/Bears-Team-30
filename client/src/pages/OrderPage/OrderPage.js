@@ -16,6 +16,8 @@ class OrderPage extends Component {
       discountCards: 0,
       remark: '',
       menuItems: undefined,
+      totalQty: 0,
+      total: 0,
       isMessage: false,
       messageText: '',
     }
@@ -27,14 +29,8 @@ class OrderPage extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    let totalQty = 0
-    let total = 0
-    // to calculate total price and only submit ordered items to the db
+    // to only submit ordered items to the db
     const orderedMenuItems = this.state.menuItems.filter(item => {
-      if (item.qty !== 0) {
-        totalQty += Number(item.qty)
-        total += Number(item.qty) * Number(item.price)
-      }
       return item.qty !== 0
     })
     /*
@@ -42,7 +38,7 @@ class OrderPage extends Component {
     array of objects with `name`, `price`, `qty`, `category` and `foodId`
     */
     const menuItems = JSON.stringify(orderedMenuItems)
-    const { name, discountCards, remark } = this.state
+    const { name, discountCards, remark, totalQty, total } = this.state
     this.props
       .createOrder({
         variables: {
@@ -64,20 +60,35 @@ class OrderPage extends Component {
       discountCards: 0,
       remark: '',
       menuItems: undefined,
+      totalQty: 0,
+      total: 0,
     })
   }
 
   handleChangeMenuItem = e => {
+    let totalQty = 0
+    let total = 0
     // to get foodId from input
     const targetId = e.target.name.split('-')[1]
-    const updatedMenuItems = this.state.menuItems.map(
-      item =>
-        // to only alter the correct box -> return target value if id matches, else return unaltered item
-        item.foodId === targetId
-          ? { ...item, qty: Number(e.target.value) }
-          : item
-    )
-    this.setState({ menuItems: updatedMenuItems })
+    const updatedMenuItems = this.state.menuItems.map(item => {
+      // to calculate how many items ordered, and total cost of the order
+      if (item.qty !== 0 && item.foodId !== targetId) {
+        totalQty += Number(item.qty)
+        total += Number(item.qty) * Number(item.price)
+      } else if (item.foodId === targetId) {
+        totalQty += Number(Number(e.target.value))
+        total += Number(Number(e.target.value)) * Number(item.price)
+      }
+      // to only alter the correct box -> return target value if id matches, else return unaltered item
+      return item.foodId === targetId
+        ? { ...item, qty: Number(e.target.value) }
+        : item
+    })
+    this.setState({
+      totalQty,
+      total,
+      menuItems: updatedMenuItems,
+    })
   }
 
   displayMessage = messageText => {
@@ -88,14 +99,6 @@ class OrderPage extends Component {
   }
 
   render () {
-    const {
-      name,
-      discountCards,
-      remark,
-      menuItems,
-      isMessage,
-      messageText,
-    } = this.state
     // Only 1 call to db for all menu item info
     let data = this.props.allMenuItems
     if (!data.loading && !this.state.menuItems) {
@@ -111,6 +114,16 @@ class OrderPage extends Component {
       })
       this.setState({ menuItems: filteredData })
     }
+    const {
+      name,
+      discountCards,
+      remark,
+      menuItems,
+      totalQty,
+      total,
+      isMessage,
+      messageText,
+    } = this.state
 
     return (
       <ContentArea>
@@ -166,32 +179,48 @@ class OrderPage extends Component {
               )}
             </tbody>
           </table>
-          <label>
-            Remark
-            <textarea
-              type='number'
-              name='remark'
-              rows='4'
-              cols='30'
-              onChange={this.handleChange}
-              value={remark}
-            />
-          </label>
-          <button type='submit'>Submit</button>
-          <button
-            type='reset'
-            onClick={() =>
-              this.setState({
-                name: '',
-                discountCards: 0,
-                remark: '',
-                menuItems: undefined,
-              })
-            }
-          >
-            Reset
-          </button>
-          {isMessage ? <div>{messageText}</div> : null}
+          <div>
+            <label>
+              <div>
+                Total items ordered: <span>{totalQty}</span>
+              </div>
+            </label>
+            <label>
+              <div>
+                Total: <span>{total}</span>
+              </div>
+            </label>
+            <label>
+              Remark:
+              <textarea
+                type='number'
+                name='remark'
+                rows='4'
+                cols='30'
+                onChange={this.handleChange}
+                value={remark}
+              />
+            </label>
+            <div>
+              <button type='submit'>Submit </button>
+              <button
+                type='reset'
+                onClick={() =>
+                  this.setState({
+                    name: '',
+                    discountCards: 0,
+                    remark: '',
+                    menuItems: undefined,
+                    totalQty: 0,
+                    total: 0,
+                  })
+                }
+              >
+                Reset
+              </button>
+            </div>
+            {isMessage ? <div>{messageText}</div> : null}
+          </div>
         </form>
       </ContentArea>
     )

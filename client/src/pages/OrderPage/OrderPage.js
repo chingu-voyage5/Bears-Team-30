@@ -16,6 +16,8 @@ class OrderPage extends Component {
       discountCards: 0,
       remark: '',
       menuItems: undefined,
+      isMessage: false,
+      messageText: '',
     }
   }
 
@@ -27,6 +29,7 @@ class OrderPage extends Component {
     e.preventDefault()
     let totalQty = 0
     let total = 0
+    // to calculate total price and only submit ordered items to the db
     const orderedMenuItems = this.state.menuItems.filter(item => {
       if (item.qty !== 0) {
         totalQty += Number(item.qty)
@@ -40,16 +43,22 @@ class OrderPage extends Component {
     */
     const menuItems = JSON.stringify(orderedMenuItems)
     const { name, discountCards, remark } = this.state
-    this.props.createOrder({
-      variables: {
-        name,
-        totalQty,
-        total,
-        discountCards,
-        remark,
-        menuItems,
-      },
-    })
+    this.props
+      .createOrder({
+        variables: {
+          name,
+          totalQty,
+          total,
+          discountCards,
+          remark,
+          menuItems,
+        },
+      })
+      .then(() => this.displayMessage('The order was updated succesfully 🎉'))
+      .catch(error => {
+        console.error(error)
+        this.displayMessage(error.message)
+      })
     this.setState({
       name: '',
       discountCards: 0,
@@ -71,8 +80,22 @@ class OrderPage extends Component {
     this.setState({ menuItems: updatedMenuItems })
   }
 
+  displayMessage = messageText => {
+    this.setState({ isMessage: true, messageText })
+    setTimeout(() => {
+      this.setState({ isMessage: false, messageText: '' })
+    }, 4000)
+  }
+
   render () {
-    const { name, discountCards, remark, menuItems } = this.state
+    const {
+      name,
+      discountCards,
+      remark,
+      menuItems,
+      isMessage,
+      messageText,
+    } = this.state
     // Only 1 call to db for all menu item info
     let data = this.props.allMenuItems
     if (!data.loading && !this.state.menuItems) {
@@ -168,6 +191,7 @@ class OrderPage extends Component {
           >
             Reset
           </button>
+          {isMessage ? <div>{messageText}</div> : null}
         </form>
       </ContentArea>
     )

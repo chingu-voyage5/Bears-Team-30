@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const MenuItem = props => {
   const { menuItems, category, menuItemChange } = props
@@ -30,6 +31,12 @@ const MenuItem = props => {
     })
 
   return <React.Fragment>{itemDisplay}</React.Fragment>
+}
+
+MenuItem.propTypes = {
+  menuItems: PropTypes.any,
+  category: PropTypes.string.isRequired,
+  menuItemChange: PropTypes.func.isRequired,
 }
 
 export default MenuItem

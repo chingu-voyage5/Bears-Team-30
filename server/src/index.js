@@ -32,7 +32,7 @@ const resolvers = {
       return new Order({
         name: args.name,
         remark: args.remark,
-        menuItems: JSON.parse(args.menuItems)[0],
+        menuItems: JSON.parse(args.menuItems),
         totalQty: args.totalQty,
         discountCards: args.discountCards,
         total: args.total,
@@ -56,7 +56,7 @@ const resolvers = {
         if (!args.totalQty || !args.total)
           throw `args.totalQty and args.total is required to update menuItems`;
 
-        update.menuItems = JSON.parse(args.menuItems)[0];
+        update.menuItems = JSON.parse(args.menuItems);
         update.total = args.total;
         update.totalQty = args.totalQty;
       }

@@ -46,7 +46,7 @@ const NavItem = styled.li`
 
 const Links = [
   { label: 'Entrance', path: '/entrance' },
-  { label: 'Kitchen', path: '/entrance' },
+  { label: 'Kitchen', path: '/kitchen' },
 ]
 
 const renderLinks = (links = Links) =>

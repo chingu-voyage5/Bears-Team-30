@@ -3,7 +3,6 @@ const { GraphQLServer } = require('graphql-yoga');
 const mongoose = require('mongoose');
 
 const { uri } = require('../server.config.js');
-const { setTime } = require('./utils');
 
 // MongoDB Models
 const MenuItem = require('./models/menuItem');
@@ -36,7 +35,7 @@ const resolvers = {
         totalQty: args.totalQty,
         discountCards: args.discountCards,
         total: args.total,
-        orderedAt: setTime(),
+        orderedAt: Date(Date.now()),
         status: 'ordered'
       }).save();
     },
@@ -47,8 +46,8 @@ const resolvers = {
       if (args.tableNumber) update.tableNumber = args.tableNumber;
 
       if (args.status) {
-        if (args.status === 'scanned') update.scannedAt = setTime();
-        if (args.status === 'delivered') update.deliveredAt = setTime();
+        if (args.status === 'scanned') update.scannedAt = Date(Date.now());
+        if (args.status === 'delivered') update.deliveredAt = Date(Date.now());
       }
 
       if (args.menuItems) {

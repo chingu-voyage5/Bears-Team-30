@@ -101,7 +101,10 @@ class OrderPage extends Component {
   render () {
     // Only 1 call to db for all menu item info
     let data = this.props.allMenuItems
-    if (!data.loading && this.state.menuItems !== undefined) {
+    console.log('====================================')
+    console.log(data)
+    console.log('====================================')
+    if (!data.loading && !this.state.menuItems && data.allMenuItems) {
       let filteredData = data.allMenuItems.map(item => {
         // not using rest {..item} so we can rename _id to foodId
         return {

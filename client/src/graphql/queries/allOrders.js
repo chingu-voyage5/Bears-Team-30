@@ -13,7 +13,7 @@ export const allOrders = gql`
         category
         qty
       }
-      qty
+      totalQty
       tableNumber
       discountCards
       total
